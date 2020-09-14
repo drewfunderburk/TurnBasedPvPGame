@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\s208059\\Documents\\Github\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj": {}
+    "C:\\Users\\thatf\\OneDrive\\Documents\\GitHub\\_AIE\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\s208059\\Documents\\Github\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj": {
+    "C:\\Users\\thatf\\OneDrive\\Documents\\GitHub\\_AIE\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\s208059\\Documents\\Github\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj",
+        "projectUniqueName": "C:\\Users\\thatf\\OneDrive\\Documents\\GitHub\\_AIE\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj",
         "projectName": "TurnBasedPvPGame",
-        "projectPath": "C:\\Users\\s208059\\Documents\\Github\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj",
-        "packagesPath": "C:\\Users\\s208059\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\s208059\\Documents\\Github\\TurnBasedPvPGame\\obj\\",
+        "projectPath": "C:\\Users\\thatf\\OneDrive\\Documents\\GitHub\\_AIE\\TurnBasedPvPGame\\TurnBasedPvPGame.csproj",
+        "packagesPath": "C:\\Users\\thatf\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\thatf\\OneDrive\\Documents\\GitHub\\_AIE\\TurnBasedPvPGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\s208059\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\thatf\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/discord-net/api/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -52,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

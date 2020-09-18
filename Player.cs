@@ -15,7 +15,7 @@ namespace TurnBasedPvPGame
         private int _level;
         private int _damage;
         private int _armor;
-        private Item _item;
+        private Inventory _inventory;
 
         public Player()
         {
@@ -27,7 +27,7 @@ namespace TurnBasedPvPGame
             _armor = 0;
         }
 
-        public Player(string name, string combatClass, int maxHealth, int level, int damage, int armor, Item item)
+        public Player(string name, string combatClass, int maxHealth, int level, int damage, int armor, Inventory inventory)
         {
             _name = name;
             _combatClass = combatClass;
@@ -36,9 +36,19 @@ namespace TurnBasedPvPGame
             _level = level;
             _damage = damage;
             _armor = armor;
-            _item = item;
+            _inventory = inventory;
         }
 
+        public void ShowInventory()
+        {
+            Console.WriteLine("Which Item would you like to use?");
+            _inventory.PrintInventory();
+        }
+
+        public Inventory GetInventory()
+        {
+            return _inventory;
+        }
         public string GetCombatClass()
         {
             return _combatClass;
@@ -48,6 +58,7 @@ namespace TurnBasedPvPGame
         {
             return _name;
         }
+
         public void TakeDamage(int damage)
         {
             damage -= _armor;
@@ -74,26 +85,28 @@ namespace TurnBasedPvPGame
         {
             _armor += armor;
         }
+
         public void Attack(Player enemy)
         {
             enemy.TakeDamage(_damage);
         }
 
-        public void ConsumeItem()
+        public void ConsumeItem(int index)
         {
-            if (_item.name == "Health Potion")
+            Item item = _inventory.GetItemAtSlot(index);
+            if (item.name == "Health Potion")
             {
-                Heal(_item.buff);
+                Heal(item.buff);
             }
-            else if (_item.name == "Armor Potion")
+            else if (item.name == "Armor Potion")
             {
-                IncreaseArmor(_item.buff);
+                IncreaseArmor(item.buff);
             }
             else
             {
                 return;
             }
-            _item.name = "None";
+            item.name = "None";
         }
 
         public bool IsAlive()

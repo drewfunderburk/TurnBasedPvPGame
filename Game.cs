@@ -43,10 +43,10 @@ namespace TurnBasedPvPGame
                 Console.WriteLine("Welcome to TurnBasedPvPGame!\n");
                 Console.WriteLine(" [1] Play");
                 Console.WriteLine(" [2] Quit");
-                string input = GetStringInput(new[] { "1", "2" });
-                if (input == "1")
+                char input = GetStringInput(2);
+                if (input == '1')
                     _gameState = "Character Select";
-                else if (input == "2")
+                else if (input == '2')
                     _endGame = true;
             }
             else if (_gameState == "Character Select")
@@ -57,7 +57,7 @@ namespace TurnBasedPvPGame
                 Console.WriteLine("Player 1! Choose your character!");
                 Console.WriteLine(" [1] Knight");
                 Console.WriteLine(" [2] Wizard");
-                string input = GetStringInput(new[] { "1", "2" });
+                char input = GetStringInput(2);
                 InitPlayer(ref _player1, input, "Player 1");
 
                 Console.WriteLine();
@@ -67,7 +67,7 @@ namespace TurnBasedPvPGame
                 Console.WriteLine("Player 2! Choose your character!");
                 Console.WriteLine(" [1] Knight");
                 Console.WriteLine(" [2] Wizard");
-                input = GetStringInput(new[] { "1", "2" });
+                input = GetStringInput(2);
                 InitPlayer(ref _player2, input, "Player 2");
 
                 Console.WriteLine();
@@ -82,8 +82,8 @@ namespace TurnBasedPvPGame
                 Console.WriteLine("Ready to begin?");
                 Console.WriteLine(" [1] Yes");
                 Console.WriteLine(" [2] No");
-                input = GetStringInput(new[] { "1", "2" });
-                if (input == "1")
+                input = GetStringInput(2);
+                if (input == '1')
                     _gameState = "Game";
 
             }
@@ -124,9 +124,9 @@ namespace TurnBasedPvPGame
             _player2.PrintStats();
             Console.WriteLine();
             // Player1 turn
-            string player1Action = CombatMenu(_player1);
+            char player1Action = CombatMenu(_player1);
             // Player2 turn
-            string player2Action = CombatMenu(_player2);
+            char player2Action = CombatMenu(_player2);
 
             ResolveCombat(player1Action, player2Action);
             PressAnyKeyToContinue();
@@ -140,22 +140,24 @@ namespace TurnBasedPvPGame
         }
 
         #region COMBAT METHODS
-        public void ResolveCombat(string player1Action, string player2Action)
+        public void ResolveCombat(char player1Action, char player2Action)
         {
             // Player 1 turn
             if (_player1.IsAlive())
             {
                 // Attack
-                if (player1Action == "1")
+                if (player1Action == '1')
                 {
                     // Deal damage to player2
                     _player1.Attack(_player2);
                 }
 
                 // Item usage
-                if (player1Action == "2")
+                if (player1Action == '2')
                 {
-                    _player1.ConsumeItem();
+                    _player1.ShowInventory();
+                    char input = GetStringInput(_player1.GetInventory().GetInventoryArray().Length);
+                    _player1.ConsumeItem((int)Char.GetNumericValue(input));
                 }
             }
             else
@@ -167,15 +169,17 @@ namespace TurnBasedPvPGame
             if (_player2.IsAlive())
             {
                 // Attack
-                if (player2Action == "1")
+                if (player2Action == '1')
                 {
                     // Deal damage to player1
                     _player2.Attack(_player1);
                 }
 
-                if (player2Action == "2")
+                if (player2Action == '2')
                 {
-                    _player2.ConsumeItem();
+                    _player2.ShowInventory();
+                    char input = GetStringInput(_player2.GetInventory().GetInventoryArray().Length);
+                    _player2.ConsumeItem((int)Char.GetNumericValue(input));
                 }
             }
             else
@@ -185,29 +189,29 @@ namespace TurnBasedPvPGame
 
         }
 
-        public string CombatMenu(Player player)
+        public char CombatMenu(Player player)
         {
             Console.WriteLine();
             Console.WriteLine(player.GetName());
             Console.WriteLine("Select an Action:");
             Console.WriteLine(" [1] Attack");
             Console.WriteLine(" [2] Use Item");
-            string input = GetStringInput(new[] { "1", "2" });
+            char input = GetStringInput(2);
             return input;
         }
         #endregion
 
         #region HELPERS
         // Initialize Player
-        public void InitPlayer(ref Player player, string combatClass, string playerName)
+        public void InitPlayer(ref Player player, char combatClass, string playerName)
         {
-            if (combatClass == "1")
+            if (combatClass == '1')
             {
-                player = new Player(playerName, "Knight", 200, 1, 15, 10, InitItem("Health Potion"));
+                player = new Player(playerName, "Knight", 200, 1, 15, 10, new Inventory(5, new Item[1] { InitItem("Health Potion") }));
             }
             else
             {
-                player = new Player(playerName, "Wizard", 100, 1, 50, 0, InitItem("Armor Potion"));
+                player = new Player(playerName, "Wizard", 100, 1, 50, 0, new Inventory(5, new Item[1] { InitItem("Health Potion") }));
             }
         }
 
@@ -243,19 +247,14 @@ namespace TurnBasedPvPGame
         }
 
         // Auto loops for correct input
-        public string GetStringInput(string[] validInputs)
+        public char GetStringInput(int numOptions)
         {
             while (true)
             {
                 Console.Write(">");
-                string input = Console.ReadLine();
-                foreach (string item in validInputs)
-                {
-                    if (input == item)
-                    {
-                        return input;
-                    }
-                }
+                char input = Console.ReadKey().KeyChar;
+                if (Char.GetNumericValue(input) <= numOptions)
+                    return input;
                 Console.WriteLine("\nInput not recognized.");
             }
         }
